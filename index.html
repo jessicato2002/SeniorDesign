@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
+    <body>
+        <a-scene
+  restrictMovement
+  landing-page
+  renderer="colorManagement: true"
+  xrweb="allowedDevices: any">
+  <!-- We can define assets here to be loaded when A-Frame initializes -->
+  <a-assets>
+    <!-- Credit to Poly by Google for the model: https://poly.google.com/view/5ZMAz7_ucTn -->
+    <!-- CHANGE THIS TO OUR BUNNY MODEL!!!-->
+    <a-asset-item id="sandCastleModel" src="sand-castle.glb"></a-asset-item>
+  </a-assets>
+
+  <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
+  <a-camera
+    id="camera"
+    position="0 8 8"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-entity
+    light="
+      type: directional;
+      intensity: 0.8;
+      castShadow: true;
+      shadowMapHeight:2048;
+      shadowMapWidth:2048;
+      shadowCameraTop: 10;
+      target: #model;
+      shadowRadius: 12"
+    xrextras-attach="target: model; offset: 1 15 3;"
+    shadow>
+  </a-entity>
+
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <!-- CHANGE THIS TO OUR BUNNY MODEL!-->
+  <a-entity
+    id="model"
+    gltf-model="#sandCastleModel"
+    class="cantap"
+    shadow="receive: false"
+    position="0 7 -5"
+    restrictmovement>
+  </a-entity>
+
+  <a-plane id="ground" rotation="0 0 0" width="5000" height="5000" material="shader: shadow" shadow>
+  </a-plane>
+</a-scene>
+
+    </body>
+
+</html>
